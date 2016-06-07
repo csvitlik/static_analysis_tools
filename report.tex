@@ -1,0 +1,396 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\setlength{\parindent}{0pt}
+
+\definecolor{Blue}{rgb}{0.2 0.5 1.0}
+
+\hypersetup{citecolor=Blue,%
+            colorlinks=true,%
+            linkcolor=Blue,%
+            pdfborder=0 0 0,%
+            urlcolor=Blue,%
+}
+
+\let\myurl\url%
+\renewcommand{\url}[1]{\hfill \\ \textbf{\myurl{#1}}%
+}
+\let\mytexttt\texttt%
+\renewcommand{\texttt}[1]{\textbf{\mytexttt{#1}}%
+}
+
+\titleformat*{\section}{compact}
+\titleformat{\section}{\Large\bfseries}{}{0pt}{}{}
+
+\titlespacing{\section}{0pt}{10pt}{10pt}
+
+\title{Static Analysis Tools}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+% {{{ AddressSanitizer
+\section{AddressSanitizer}
+\begin{quote}
+AddressSanitizer (aka ASan) is a memory error detector for C/C++. It finds:
+
+\begin{itemize}
+    \item Use after free (dangling pointer dereference)
+    \item Heap buffer overflow
+    \item Stack buffer overflow
+    \item Global buffer overflow
+    \item Use after return
+    \item Initialization order bugs
+    \item Memory leaks
+\end{itemize}
+\end{quote}
+
+\label{asan}
+This, in combination with \hyperref[msan]{other} \hyperref[tsan]{sanitizers},
+allows for powerful debugging capabilities.
+
+\cite{asan}
+% }}}
+% {{{ AFL
+\section{American Fuzzy Lop}
+\begin{quote}
+American fuzzy lop is a security-oriented fuzzer that employs a
+novel type of compile-time instrumentation and genetic algorithms to
+automatically discover clean, interesting test cases that trigger new
+internal states in the targeted binary. This substantially improves
+the functional coverage for the fuzzed code. The compact synthesized
+corpora produced by the tool are also useful for seeding other,
+more labor- or resource-intensive testing regimes down the road.
+\end{quote}
+
+Very useful tool for testing an extensive amount of random inputs.
+
+\cite{afl}
+% }}}
+% {{{ Astrée
+\section{Astrée}
+\begin{quote}
+Astrée stands for Analyseur statique
+de logiciels temps-réel embarqués (real-time embedded software static
+analyzer).
+
+Astrée is a static program analyzer aiming at proving the absence of Run
+Time Errors (RTE) in programs written in the C programming language.
+On personal computers, such errors, commonly found in programs, usually
+result in unpleasant error messages and the termination of the application,
+and sometimes in a system crash. In embedded applications, such errors may
+have graver consequences.
+
+Astrée analyzes structured C programs, with complex memory usages, but
+without dynamic memory allocation and recursion. This encompasses many
+embedded programs as found in earth transportation, nuclear energy,
+medical instrumentation, aeronautic, and aerospace applications, in
+particular synchronous control/command such as electric flight control,
+or space vessels maneuvers.
+\end{quote}
+
+I have never used this tool. It is a proprietary product, and the distributor
+must be contacted in order to request a quote for the program.
+
+\cite{astree}
+% }}}
+% {{{ BLAST
+\section{BLAST}
+\begin{quote}
+BLAST (Berkeley Lazy Abstraction Software verification Tool) is a static
+software verification tool for C language that solves the reachability
+problem, i.e.\ whether a given program location can be reached from an
+entry point (main function) by a valid execution.
+
+Verification of safety properties may be reduced to the reachability,
+and BLAST is used for such verification in the Linux Driver Verification
+project.
+\end{quote}
+
+I have never used this tool. It is free software. The release notes
+contain more information about the capabilities of this tool.
+
+\cite{blast}
+% }}}
+% {{{ Clang Static Analyzer
+\section{Clang Static Analyzer}
+\begin{quote}
+The Clang Static Analyzer is a source code analysis tool that finds bugs
+in C, C++, and Objective-C programs.
+\end{quote}
+
+I have never used this tool, but it looks interesting. There is a web
+browser interface to trace code paths.
+
+\cite{clang}
+% }}}
+% {{{ Coccinelle
+\section{Coccinelle}
+
+\begin{quote}
+Coccinelle is a program matching and transformation engine which
+provides the language SmPL (Semantic Patch Language) for specifying
+desired matches and transformations in C code. Coccinelle was initially
+targeted towards performing collateral evolutions in Linux. Such
+evolutions comprise the changes that are needed in client code in
+response to evolutions in library APIs, and may include modifications
+such as renaming a function, adding a function argument whose value is
+somehow context-dependent, and reorganizing a data structure. Beyond
+collateral evolutions, Coccinelle is successfully used (by us and others)
+for finding and fixing bugs in systems code.
+\end{quote}
+
+I have never used this tool. It looks more complex than useful.
+
+\cite{coccinelle}
+% }}}
+% {{{ Cppcheck
+\section{Cppcheck}
+
+\begin{quote}
+Cppcheck is a static analysis tool for C/C++ code. Unlike C/C++ compilers
+and many other analysis tools it does not detect syntax errors in the
+code. Cppcheck primarily detects the types of bugs that the compilers
+normally do not detect. The goal is to detect only real errors in the code
+(i.e.\ have zero false positives).
+
+Detect various kinds of bugs in your code:
+
+\begin{itemize}
+    \item Out of bounds checking
+    \item Memory leaks checking
+    \item Detect possible null pointer dereferences
+    \item Check for uninitialized variables
+    \item Check for invalid usage of STL
+    \item Checking exception safety
+    \item Warn if obsolete or unsafe functions are used
+    \item Warn about unused or redundant code
+    \item Detect various suspicious code indicating bugs
+\end{itemize}
+\end{quote}
+
+I have never used this tool. It is free software, and looks useful.
+
+\cite{cppcheck}
+% }}}
+% {{{ Eclair
+\section{Eclair}
+
+\begin{quote}
+ECLAIR is a general platform for software verification. Applications
+range from coding rule validation, to automatic generation of
+test cases, to the proof of absence of run-time errors or generation
+of counterexamples, and to the specification of code matchers and
+rewriters based both syntactic and semantic conditions.
+\end{quote}
+
+I have never used this product. It is a proprietary product, and the
+distributor must be contacted in order to request a quote for the program.
+
+\cite{eclair}
+% }}}
+% {{{ Gdb
+\section{Gdb}
+
+\begin{quote}
+GDB, the GNU Project debugger, allows you to see what is going on
+``inside'' another program while it executes --- or what another program
+was doing at the moment it crashed.
+
+GDB can do four main kinds of things (plus other things in support
+of these) to help you catch bugs in the act:
+
+\begin{itemize}
+    \item Start your program, specifying anything that might affect its behavior.
+    \item Make your program stop on specified conditions.
+    \item Examine what has happened, when your program has stopped.
+    \item Change things in your program, so you can experiment
+          with correcting the effects of one bug and go on to
+          learn about another.
+\end{itemize}
+\end{quote}
+
+This is a very useful program. It is free software.
+
+\cite{gdb}
+% }}}
+% {{{ Indent
+\section{Indent}
+
+\begin{quote}
+The indent program can be used to make code easier to read. It
+can also convert from one style of writing C to another.\ indent
+understands a substantial amount about the syntax of C, but it also
+attempts to cope with incomplete and misformed syntax.
+\end{quote}
+
+This is a very useful program. It is free software.
+
+\cite{indent}
+% }}}
+% {{{ MemorySanitizer
+\section{MemorySanitizer}
+
+\begin{quote}
+MemorySanitizer (MSan) is a detector of uninitialized memory reads
+in C/C++ programs.
+
+Uninitialized values occur when stack- or heap-allocated memory
+is read before it is written. MSan detects cases where such values
+affect program execution.
+
+MemorySanitizer is bit-exact: it can track uninitialized bits in
+a bitfield. It will tolerate copying of uninitialized memory, and
+also simple logic and arithmetic operations with it. In general,
+MemorySanitizer silently tracks the spread of uninitialized data in
+memory, and reports a warning when a code branch is taken (or not
+taken) depending on an uninitialized value.
+\end{quote}
+
+\label{msan}
+This, in combination with \hyperref[asan]{other} \hyperref[tsan]{sanitizers},
+allows for powerful debugging capabilities.
+
+\cite{msan}
+% }}}
+% {{{ Parasoft C/C++Test
+\section{Parasoft C/C++Test}
+
+\begin{quote}
+Parasoft C/C++test is an integrated development testing solution for C and
+C++. It automates a broad range of software quality practices—including
+static code analysis, unit testing, code review, coverage analysis,
+runtime error detection and more. It can be used in both host-based
+and target-based code analysis and test flows, which is critical for
+embedded and cross-platform development.
+\end{quote}
+
+I have never used this product. It is a proprietary product, and the
+distributor must be contacted in order to request a quote for the program.
+
+\cite{cpptest}
+% }}}
+% {{{ Splint
+\section{Splint}
+
+\begin{quote}
+Splint is a tool for statically checking C programs for security
+vulnerabilities and coding mistakes. With minimal effort, Splint can
+be used as a better lint. If additional effort is invested adding
+annotations to programs, Splint can perform stronger checking than
+can be done by any standard lint.
+\end{quote}
+
+This is the spiritual successor to the well-known \texttt{lint} program.
+
+\cite{splint}
+% }}}
+% {{{ ThreadSanitizer
+\section{ThreadSanitizer}
+
+\begin{quote}
+ThreadSanitizer (aka TSan) is a data race detector for C/C++. Data
+races are one of the most common and hardest to debug types of bugs
+in concurrent systems. A data race occurs when two threads access
+the same variable concurrently and at least one of the accesses
+is write. C++11 standard officially bans data races as undefined
+behavior.
+\end{quote}
+
+\label{tsan}
+This, in combination with \hyperref[asan]{other} \hyperref[msan]{sanitizers},
+allows for powerful debugging capabilities.
+
+\cite{tsan}
+% }}}
+% {{{ Valgrind
+\section{Valgrind}
+
+\begin{quote}
+Valgrind is an instrumentation framework for building dynamic analysis
+tools. There are Valgrind tools that can automatically detect many
+memory management and threading bugs, and profile your programs in
+detail.
+
+The Valgrind distribution currently includes six production-quality
+tools: a memory error detector, two thread error detectors,
+a cache and branch-prediction profiler, a call-graph generating
+cache and branch-prediction profiler, and a heap profiler. It also
+includes three experimental tools: a stack/global array overrun
+detector, a second heap profiler that examines how heap blocks are
+used, and a SimPoint basic block vector generator.
+\end{quote}
+
+This is a useful tool to detect leaks in applications with dynamically
+allocated memory. The other tools included in the distribution are useful
+as well.
+
+\cite{valgrind}
+% }}}
+% {{{ Veracode
+\section{Veracode}
+
+\begin{quote}
+SAST identifies critical vulnerabilities such as SQL injection,
+cross-site scripting (XSS), buffer overflows, unhandled error
+conditions and potential back-doors. Binary SAST technology
+delivers actionable information that prioritizes flaws according
+to severity and provides detailed remediation information to help
+developers address them quickly.
+\end{quote}
+
+I have never used this product. It is a proprietary product, and the
+distributor must be contacted in order to request a quote for the program.
+
+\cite{sast}
+% }}}
+% {{{ Bibliography
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+
+\bibitem{asan}
+    \url{https://github.com/google/sanitizers/wiki/AddressSanitizer}
+\bibitem{afl}
+    \url{http://lcamtuf.coredump.cx/afl/}
+\bibitem{astree}
+    \url{http://www.astree.ens.fr/}
+\bibitem{blast}
+    \url{http://forge.ispras.ru/projects/blast}
+\bibitem{clang}
+    \url{http://clang-analyzer.llvm.org/}
+\bibitem{coccinelle}
+    \url{http://coccinelle.lip6.fr/}
+\bibitem{cppcheck}
+    \url{http://cppcheck.sourceforge.net/}
+\bibitem{eclair}
+    \url{http://bugseng.com/products/eclair}
+\bibitem{gdb}
+    \url{https://www.gnu.org/software/gdb/}
+\bibitem{indent}
+    \url{https://www.gnu.org/software/indent/}
+\bibitem{msan}
+    \url{https://github.com/google/sanitizers/wiki/MemorySanitizer}
+\bibitem{cpptest}
+    \url{https://www.parasoft.com/product/cpptest/}
+\bibitem{splint}
+    \url{http://splint.org/}
+\bibitem{tsan}
+    \url{https://github.com/google/sanitizers/wiki/ThreadSanitizerCppManual}
+\bibitem{valgrind}
+    \url{http://valgrind.org/}
+\bibitem{sast}
+    \url{https://www.veracode.com/products/binary-static-analysis-sast}
+
+\end{thebibliography}
+% }}}
+\end{document}
