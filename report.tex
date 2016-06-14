@@ -1,16 +1,18 @@
 \documentclass[12pt]{article}
 
 \usepackage[margin=1in]{geometry}
-\renewcommand{\sfdefault}{phv}
-\renewcommand{\rmdefault}{phv}
-\renewcommand{\ttdefault}{pcr}
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+\usepackage[T1]{fontenc}
 
 \setlength{\parindent}{0pt}
+\setlength{\hoffset}{0pt}
+\setlength{\voffset}{0pt}
 
 \definecolor{Blue}{rgb}{0.2 0.5 1.0}
 
@@ -21,22 +23,15 @@
             urlcolor=Blue,%
 }
 
-\let\myurl\url%
-\renewcommand{\url}[1]{\hfill \\ \textbf{\myurl{#1}}%
-}
-\let\mytexttt\texttt%
-\renewcommand{\texttt}[1]{\textbf{\mytexttt{#1}}%
-}
-
 \titleformat*{\section}{compact}
 \titleformat{\section}{\Large\bfseries}{}{0pt}{}{}
-
 \titlespacing{\section}{0pt}{10pt}{10pt}
 
-\title{Static Analysis Tools}
+\author{}
+\date{}
+\title{\Huge\bfseries Static Analysis Tools}
 
 \begin{document}
-
 \maketitle
 \tableofcontents
 % {{{ AddressSanitizer
@@ -58,7 +53,6 @@ AddressSanitizer (aka ASan) is a memory error detector for C/C++. It finds:
 \label{asan}
 This, in combination with \hyperref[msan]{other} \hyperref[tsan]{sanitizers},
 allows for powerful debugging capabilities.
-
 \cite{asan}
 % }}}
 % {{{ AFL
@@ -74,7 +68,6 @@ more labor- or resource-intensive testing regimes down the road.
 \end{quote}
 
 Very useful tool for testing an extensive amount of random inputs.
-
 \cite{afl}
 % }}}
 % {{{ Astrée
@@ -101,7 +94,6 @@ or space vessels maneuvers.
 
 I have never used this tool. It is a proprietary product, and the distributor
 must be contacted in order to request a quote for the program.
-
 \cite{astree}
 % }}}
 % {{{ BLAST
@@ -119,8 +111,18 @@ project.
 
 I have never used this tool. It is free software. The release notes
 contain more information about the capabilities of this tool.
-
 \cite{blast}
+% }}}
+% {{{ Checked C
+\section{Checked C}
+\begin{quote}
+Checked C is an extension to C that adds static and dynamic checking to
+detect or prevent common programming errors such as buffer overruns,
+out-of-bounds memory accesses, and incorrect type casts.
+\end{quote}
+
+I have never used this tool, but it looks interesting.
+\cite{checkedc}
 % }}}
 % {{{ Clang Static Analyzer
 \section{Clang Static Analyzer}
@@ -131,7 +133,6 @@ in C, C++, and Objective-C programs.
 
 I have never used this tool, but it looks interesting. There is a web
 browser interface to trace code paths.
-
 \cite{clang}
 % }}}
 % {{{ Coccinelle
@@ -151,7 +152,6 @@ for finding and fixing bugs in systems code.
 \end{quote}
 
 I have never used this tool. It looks more complex than useful.
-
 \cite{coccinelle}
 % }}}
 % {{{ Cppcheck
@@ -180,7 +180,6 @@ Detect various kinds of bugs in your code:
 \end{quote}
 
 I have never used this tool. It is free software, and looks useful.
-
 \cite{cppcheck}
 % }}}
 % {{{ Eclair
@@ -196,7 +195,6 @@ rewriters based both syntactic and semantic conditions.
 
 I have never used this product. It is a proprietary product, and the
 distributor must be contacted in order to request a quote for the program.
-
 \cite{eclair}
 % }}}
 % {{{ Gdb
@@ -221,7 +219,6 @@ of these) to help you catch bugs in the act:
 \end{quote}
 
 This is a very useful program. It is free software.
-
 \cite{gdb}
 % }}}
 % {{{ Indent
@@ -235,7 +232,6 @@ attempts to cope with incomplete and misformed syntax.
 \end{quote}
 
 This is a very useful program. It is free software.
-
 \cite{indent}
 % }}}
 % {{{ MemorySanitizer
@@ -260,7 +256,6 @@ taken) depending on an uninitialized value.
 \label{msan}
 This, in combination with \hyperref[asan]{other} \hyperref[tsan]{sanitizers},
 allows for powerful debugging capabilities.
-
 \cite{msan}
 % }}}
 % {{{ Parasoft C/C++Test
@@ -277,7 +272,6 @@ embedded and cross-platform development.
 
 I have never used this product. It is a proprietary product, and the
 distributor must be contacted in order to request a quote for the program.
-
 \cite{cpptest}
 % }}}
 % {{{ Splint
@@ -292,7 +286,6 @@ can be done by any standard lint.
 \end{quote}
 
 This is the spiritual successor to the well-known \texttt{lint} program.
-
 \cite{splint}
 % }}}
 % {{{ ThreadSanitizer
@@ -310,7 +303,6 @@ behavior.
 \label{tsan}
 This, in combination with \hyperref[asan]{other} \hyperref[msan]{sanitizers},
 allows for powerful debugging capabilities.
-
 \cite{tsan}
 % }}}
 % {{{ Valgrind
@@ -334,7 +326,6 @@ used, and a SimPoint basic block vector generator.
 This is a useful tool to detect leaks in applications with dynamically
 allocated memory. The other tools included in the distribution are useful
 as well.
-
 \cite{valgrind}
 % }}}
 % {{{ Veracode
@@ -351,43 +342,62 @@ developers address them quickly.
 
 I have never used this product. It is a proprietary product, and the
 distributor must be contacted in order to request a quote for the program.
-
 \cite{sast}
 % }}}
 % {{{ Bibliography
+\newpage
 \bibliographystyle{plain}
 \begin{thebibliography}{9}
 
+
 \bibitem{asan}
     \url{https://github.com/google/sanitizers/wiki/AddressSanitizer}
+
 \bibitem{afl}
     \url{http://lcamtuf.coredump.cx/afl/}
+
 \bibitem{astree}
     \url{http://www.astree.ens.fr/}
+
 \bibitem{blast}
     \url{http://forge.ispras.ru/projects/blast}
+
+\bibitem{checkedc}
+    \url{https://github.com/Microsoft/CheckedC}
+
 \bibitem{clang}
     \url{http://clang-analyzer.llvm.org/}
+
 \bibitem{coccinelle}
     \url{http://coccinelle.lip6.fr/}
+
 \bibitem{cppcheck}
     \url{http://cppcheck.sourceforge.net/}
+
 \bibitem{eclair}
     \url{http://bugseng.com/products/eclair}
+
 \bibitem{gdb}
     \url{https://www.gnu.org/software/gdb/}
+
 \bibitem{indent}
     \url{https://www.gnu.org/software/indent/}
+
 \bibitem{msan}
     \url{https://github.com/google/sanitizers/wiki/MemorySanitizer}
+
 \bibitem{cpptest}
     \url{https://www.parasoft.com/product/cpptest/}
+
 \bibitem{splint}
     \url{http://splint.org/}
+
 \bibitem{tsan}
     \url{https://github.com/google/sanitizers/wiki/ThreadSanitizerCppManual}
+
 \bibitem{valgrind}
     \url{http://valgrind.org/}
+
 \bibitem{sast}
     \url{https://www.veracode.com/products/binary-static-analysis-sast}
 
