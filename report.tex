@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\usepackage{graphicx}
 \renewcommand{\sfdefault}{phv}
 \renewcommand{\rmdefault}{phv}
 \renewcommand{\ttdefault}{pcr}
@@ -23,22 +24,49 @@
             urlcolor=Blue,%
 }
 
+\let\mytexttt\texttt%
+\renewcommand\texttt[1]{\textbf{\mytexttt{#1}}}
+
+\let\myurl\url%
+\renewcommand\url[1]{\textbf{\myurl{#1}}}
+
 \titleformat*{\section}{compact}
 \titleformat{\section}{\Large\bfseries}{}{0pt}{}{}
 \titlespacing{\section}{0pt}{10pt}{10pt}
 
-\author{}
-\date{}
+\author{\Large Charlie Svitlik}
+\date{\today}
 \title{\Huge\bfseries Static Analysis Tools}
 
 \begin{document}
+\setlength{\voffset}{30ex}
 \maketitle
+\begin{center}
+    \includegraphics[width=0.5\linewidth,page=1]{Timex_Group_Logo.pdf}%
+\end{center}
+\setlength{\voffset}{0pt}
+\newpage
 \tableofcontents
+\newpage
+% {{{ AFL
+\section{American Fuzzy Lop}
+\begin{quote}
+American fuzzy lop is a security-oriented fuzzer that employs a
+novel type of compile-time instrumentation and genetic algorithms to
+automatically discover clean, interesting test cases that trigger new
+internal states in the targeted binary. This substantially improves
+the functional coverage for the fuzzed code. The compact synthesized
+corpora produced by the tool are also useful for seeding other,
+more labor- or resource-intensive testing regimes down the road.
+\end{quote}
+
+Very useful tool for testing an extensive amount of random inputs.
+\cite{afl}
+% }}}
 % {{{ AddressSanitizer
 \section{AddressSanitizer}
 \begin{quote}
 AddressSanitizer (aka ASan) is a memory error detector for C/C++. It finds:
-
 \begin{itemize}
     \item Use after free (dangling pointer dereference)
     \item Heap buffer overflow
@@ -55,28 +83,24 @@ This, in combination with \hyperref[msan]{other} \hyperref[tsan]{sanitizers},
 allows for powerful debugging capabilities.
 \cite{asan}
 % }}}
-% {{{ AFL
-\section{American Fuzzy Lop}
+% {{{ TriforceAFL
+\section{TriforceAFL}
 \begin{quote}
-American fuzzy lop is a security-oriented fuzzer that employs a
-novel type of compile-time instrumentation and genetic algorithms to
-automatically discover clean, interesting test cases that trigger new
-internal states in the targeted binary. This substantially improves
-the functional coverage for the fuzzed code. The compact synthesized
-corpora produced by the tool are also useful for seeding other,
-more labor- or resource-intensive testing regimes down the road.
+AFL/QEMU fuzzing with full-system emulation.
+
+This is a patched version of AFL that supports full-system
+fuzzing using QEMU.\@ The included QEMU has been updated to allow tracing
+of branches when running a system emulator for x86\_64.
+Extra instructions have been added to start AFL's forkserver,
+make fuzz settings, and mark the start and stop of test cases.
 \end{quote}
 
 Very useful tool for testing an extensive amount of random inputs.
-\cite{afl}
+\cite{triforceafl}
 % }}}
 % {{{ Astrée
 \section{Astrée}
 \begin{quote}
-Astrée stands for Analyseur statique
-de logiciels temps-réel embarqués (real-time embedded software static
-analyzer).
-
 Astrée is a static program analyzer aiming at proving the absence of Run
 Time Errors (RTE) in programs written in the C programming language.
 On personal computers, such errors, commonly found in programs, usually
@@ -165,7 +189,6 @@ normally do not detect. The goal is to detect only real errors in the code
 (i.e.\ have zero false positives).
 
 Detect various kinds of bugs in your code:
-
 \begin{itemize}
     \item Out of bounds checking
     \item Memory leaks checking
@@ -207,7 +230,6 @@ was doing at the moment it crashed.
 
 GDB can do four main kinds of things (plus other things in support
 of these) to help you catch bugs in the act:
-
 \begin{itemize}
     \item Start your program, specifying anything that might affect its behavior.
     \item Make your program stop on specified conditions.
@@ -233,6 +255,35 @@ attempts to cope with incomplete and misformed syntax.
 
 This is a very useful program. It is free software.
 \cite{indent}
+% }}}
+% {{{ KernelAddressSanitizer
+\section{KernelAddressSanitizer}
+\begin{quote}
+KernelAddressSANitizer (KASAN) is a dynamic memory error detector. It provides
+a fast and comprehensive solution for finding use-after-free and out-of-bounds
+bugs.
+
+KASAN uses compile-time instrumentation for checking every memory access,
+therefore you will need a GCC version 4.9.2 or later. GCC 5.0 or later is
+required for detection of out-of-bounds accesses to stack or global variables.
+
+Currently KASAN is supported only for x86\_64 architecture.
+\end{quote}
+
+\label{kasan}
+Linux Kernel port of \hyperref[asan]{AddressSanatizer}.
+\cite{kasan}
+% }}}
+% {{{ KernelThreadSanitizer
+\section{KernelThreadSanitizer}
+
+\begin{quote}
+A dynamic data race error detector for Linux kernel. Currently in development.
+\end{quote}
+
+\label{ktsan}
+Linux Kernel port of \hyperref[tsan]{ThreadSanatizer}.
+\cite{ktsan}
 % }}}
 % {{{ MemorySanitizer
 \section{MemorySanitizer}
@@ -288,6 +339,19 @@ can be done by any standard lint.
 This is the spiritual successor to the well-known \texttt{lint} program.
 \cite{splint}
 % }}}
+% {{{ syzkaller
+\section{Syzkaller}
+
+\begin{quote}
+\texttt{syzkaller} is a distributed, unsupervised, coverage-guided Linux syscall
+fuzzer. It is meant to be used with KASAN (\texttt{CONFIG\_KASAN=y}), KTSAN
+(\texttt{CONFIG\_KTSAN=y}), or KUBSAN (patch).
+\end{quote}
+
+The list of found bugs leads me to believe that the coverage this tool
+achieves is comprehensive.
+\cite{syzkaller}
+% }}}
 % {{{ ThreadSanitizer
 \section{ThreadSanitizer}
 
@@ -305,6 +369,21 @@ This, in combination with \hyperref[asan]{other} \hyperref[msan]{sanitizers},
 allows for powerful debugging capabilities.
 \cite{tsan}
 % }}}
+% {{{ UBSAN
+\section{UBSAN}
+
+\begin{quote}
+A run-time checker for the C and C++ languages. In order to check your
+program with ubsan, compile and link the program with \texttt{-fsanitize=undefined}
+option. Such instrumented binaries have to be executed; if ubsan detects
+any problem, it outputs a “runtime error:” message, and in most cases
+continues executing the program.
+\end{quote}
+
+\label{ubsan}
+Looks useful.
+\cite{ubsan}
+% }}}
 % {{{ Valgrind
 \section{Valgrind}
 
@@ -315,12 +394,13 @@ memory management and threading bugs, and profile your programs in
 detail.
 
 The Valgrind distribution currently includes six production-quality
-tools: a memory error detector, two thread error detectors,
-a cache and branch-prediction profiler, a call-graph generating
-cache and branch-prediction profiler, and a heap profiler. It also
-includes three experimental tools: a stack/global array overrun
-detector, a second heap profiler that examines how heap blocks are
-used, and a SimPoint basic block vector generator.
+tools: a memory error detector, two thread error detectors, a cache and
+branch-prediction profiler, a call-graph generating cache and
+branch-prediction profiler, and a heap profiler.
+        
+It also includes three experimental tools: a stack/global array overrun
+detector, a second heap profiler that examines how heap blocks are used,
+and a SimPoint basic block vector generator.
 \end{quote}
 
 This is a useful tool to detect leaks in applications with dynamically
@@ -349,12 +429,11 @@ distributor must be contacted in order to request a quote for the program.
 \bibliographystyle{plain}
 \begin{thebibliography}{9}
 
+\bibitem{afl}
+    \url{http://lcamtuf.coredump.cx/afl/}
 
 \bibitem{asan}
     \url{https://github.com/google/sanitizers/wiki/AddressSanitizer}
-
-\bibitem{afl}
-    \url{http://lcamtuf.coredump.cx/afl/}
 
 \bibitem{astree}
     \url{http://www.astree.ens.fr/}
@@ -374,6 +453,9 @@ distributor must be contacted in order to request a quote for the program.
 \bibitem{cppcheck}
     \url{http://cppcheck.sourceforge.net/}
 
+\bibitem{cpptest}
+    \url{https://www.parasoft.com/product/cpptest/}
+
 \bibitem{eclair}
     \url{http://bugseng.com/products/eclair}
 
@@ -383,23 +465,36 @@ distributor must be contacted in order to request a quote for the program.
 \bibitem{indent}
     \url{https://www.gnu.org/software/indent/}
 
+\bibitem{kasan}
+    \url{https://www.kernel.org/doc/Documentation/kasan.txt}
+
+\bibitem{ktsan}
+    \url{https://github.com/google/ktsan}
+
 \bibitem{msan}
     \url{https://github.com/google/sanitizers/wiki/MemorySanitizer}
 
-\bibitem{cpptest}
-    \url{https://www.parasoft.com/product/cpptest/}
+\bibitem{sast}
+    \url{https://www.veracode.com/products/binary-static-analysis-sast}
 
 \bibitem{splint}
     \url{http://splint.org/}
 
+\bibitem{syzkaller}
+    \url{https://github.com/google/syzkaller}
+
+\bibitem{triforceafl}
+    \url{https://github.com/nccgroup/TriforceAFL}
+
 \bibitem{tsan}
     \url{https://github.com/google/sanitizers/wiki/ThreadSanitizerCppManual}
+
+\bibitem{ubsan}
+    \url{https://developerblog.redhat.com/2014/10/16/gcc-undefined-behavior-sanitizer-ubsan/}
 
 \bibitem{valgrind}
     \url{http://valgrind.org/}
 
-\bibitem{sast}
-    \url{https://www.veracode.com/products/binary-static-analysis-sast}
 
 \end{thebibliography}
 % }}}
