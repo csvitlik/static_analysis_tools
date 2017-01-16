@@ -16,17 +16,17 @@ Very useful tool for testing an extensive amount of random inputs.
 
 Homepage: <https://github.com/google/sanitizers/wiki/AddressSanitizer>
 
-AddressSanitizer (aka ASan) is a memory error detector for C/C++. It finds:
+    AddressSanitizer (aka ASan) is a memory error detector for C/C++. It finds:
 
-- Use after free (dangling pointer dereference)
-- Heap buffer overflow
-- Stack buffer overflow
-- Global buffer overflow
-- Use after return
-- Initialization order bugs
-- Memory leaks
+    - Use after free (dangling pointer dereference)
+    - Heap buffer overflow
+    - Stack buffer overflow
+    - Global buffer overflow
+    - Use after return
+    - Initialization order bugs
+    - Memory leaks
 
-This, in combination with [other][MemorySanitizer] [sanitizers][ThreadSanitizer],
+This, in combination with [other](#memorysanitizer) [sanitizers](#threadsanitizer),
 allows for powerful debugging capabilities.
 
 # TriforceAFL
@@ -217,7 +217,7 @@ Homepage: <https://www.kernel.org/doc/Documentation/kasan.txt>
 
     Currently KASAN is supported only for x86_64 architecture.
 
-Linux Kernel port of [AddressSanatizer].
+Linux Kernel port of [AddressSanatizer](#addresssanatizer).
 
 # KernelThreadSanitizer
 
@@ -225,7 +225,7 @@ Homepage: <https://github.com/google/ktsan>
 
 A dynamic data race error detector for Linux kernel. Currently in development.
 
-Linux Kernel port of [ThreadSanatizer].
+Linux Kernel port of [ThreadSanatizer](#threadsanatizer).
 
 # libFuzzer
 
@@ -258,7 +258,7 @@ Homepage: <https://github.com/google/sanitizers/wiki/MemorySanitizer>
     memory, and reports a warning when a code branch is taken (or not
     taken) depending on an uninitialized value.
 
-This, in combination with [other][AddressSanitizer] [sanitizers][ThreadSanitizer],
+This, in combination with [other](#addresssanitizer) [sanitizers](#threadsanitizer),
 allows for powerful debugging capabilities.
 
 # Parasoft C/C++Test
@@ -319,7 +319,7 @@ Homepage: <https://github.com/google/sanitizers/wiki/ThreadSanitizerCppManual>
     is write. C++11 standard officially bans data races as undefined
     behavior.
 
-This, in combination with [other][AddressSanitizer] [sanitizers][MemorySanitizer],
+This, in combination with [other](#addresssanitizer) [sanitizers](#memorysanitizer),
 allows for powerful debugging capabilities.
 
 # UBSAN
