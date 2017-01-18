@@ -172,6 +172,21 @@ Homepage: <http://bugseng.com/products/eclair>
 I have never used this product. It is a proprietary product, and the
 distributor must be contacted in order to request a quote for the program.
 
+# Frama-C
+
+Homepage: <http://frama-c.com/>
+
+    Frama-C is a suite of tools dedicated to the analysis of the source code of
+    software written in C.
+
+    Frama-C gathers several static analysis techniques in a single collaborative
+    framework. The collaborative approach of Frama-C allows static analyzers to
+    build upon the results already computed by other analyzers in the framework.
+    Thanks to this approach, Frama-C provides sophisticated tools, such as a slicer
+    and dependency analysis.
+
+Appears to have a number of features similar to LLVM instrumentation.
+
 # Gdb
 
 Homepage: <https://www.gnu.org/software/gdb/>
